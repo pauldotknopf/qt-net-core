@@ -92,7 +92,7 @@ pal::string_t strip_file_ext(const pal::string_t& path)
     size_t dot_pos = path.rfind(_X('.'));
     if (sep_pos != pal::string_t::npos && sep_pos > dot_pos)
     {
-        return path;
+	    return path;
     }
     return path.substr(0, dot_pos);
 }
@@ -231,7 +231,7 @@ bool skip_utf8_bom(pal::ifstream_t* stream)
     unsigned char bytes[3];
     stream->read((char*) bytes, 3);
     if ((stream->gcount() < 3) ||
-            (bytes[1] != 0xBB) ||
+            (bytes[1] != 0xBB) || 
             (bytes[2] != 0xBF))
     {
         // Reset to 0 if returning false.

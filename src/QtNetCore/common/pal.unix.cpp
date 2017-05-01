@@ -146,7 +146,7 @@ bool pal::get_default_servicing_directory(string_t* recv)
         // We should have the path in ext.
         trace::info(_X("Realpath CORE_SERVICING [%s]"), ext.c_str());
     }
-
+    
     if (!pal::directory_exists(ext))
     {
         trace::info(_X("Directory core servicing at [%s] was not specified or found"), ext.c_str());
@@ -294,7 +294,7 @@ void pal::readdir(const string_t& path, const string_t& pattern, std::vector<pal
             {
                 continue;
             }
-
+             
             // We are interested in files only
             switch (entry->d_type)
             {
