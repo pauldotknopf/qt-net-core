@@ -11,6 +11,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp
 
-include(../QtNetCore/QtNetCore.pri)
+include(QtNetCore.pri)
 
 DEFINES += QT_DEPRECATED_WARNINGS

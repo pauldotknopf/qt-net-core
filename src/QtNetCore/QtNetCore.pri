@@ -1,25 +1,39 @@
 DEFINES += QTNETCORE_LIBRARY
 DEFINES += _TARGET_AMD64_
 
-DEFINES += HOST_PKG_VER 1.1.0
-DEFINES += REPO_COMMIT_HASH 9999
+include(setup.pri)
 
-INCLUDEPATH += $$PWD
-INCLUDEPATH += $$PWD/common
-INCLUDEPATH += $$PWD/cli/fxr
+INCLUDEPATH += $$PWD \
+    $$PWD/common \
+    $$PWD/cli/fxr \
+    $$PWD/cli/json/casablanca/include
 
 HEADERS += $$PWD/qtnetcore.h\
     $$PWD/qtnetcore_global.h \
-    $$PWD/common/pal.h \
     $$PWD/common/trace.h \
     $$PWD/common/utils.h \
-    $$PWD/cli/fxr/fx_ver.h \
-    $$PWD/error_codes.h
+    $$PWD/common/pal.h \
+    $$PWD/cli/json/casablanca/include/cpprest/json.h \
+    $$PWD/cli/json/casablanca/include/cpprest/details/basic_types.h \
+    $$PWD/cli/json/casablanca/include/cpprest/details/cpprest_compat.h \
+    $$PWD/cli/json/casablanca/include/cpprest/details/nosal.h \
+    $$PWD/cli/json/casablanca/include/cpprest/details/SafeInt3.hpp
 
 SOURCES += $$PWD/qtnetcore.cpp \
     $$PWD/common/trace.cpp \
     $$PWD/common/utils.cpp \
-    $$PWD/cli/fxr/fx_ver.cpp
+    $$PWD/cli/libhost.cpp \
+    $$PWD/cli/runtime_config.cpp \
+    $$PWD/cli/json/casablanca/src/json/json.cpp \
+    $$PWD/cli/json/casablanca/src/json/json_parsing.cpp \
+    $$PWD/cli/json/casablanca/src/json/json_serialization.cpp \
+    $$PWD/cli/json/casablanca/src/utilities/asyncrt_utils.cpp \
+    $$PWD/cli/breadcrumbs.cpp \
+    $$PWD/cli/args.cpp \
+    $$PWD/cli/hostpolicy.cpp \
+    $$PWD/cli/coreclr.cpp \
+    $$PWD/cli/deps_resolver.cpp \
+    $$PWD/cli/deps_format.cpp \
 
 unix {
     SOURCES += $$PWD/common/pal.unix.cpp
