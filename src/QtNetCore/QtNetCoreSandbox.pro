@@ -9,8 +9,10 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
+include(QtNetCore.pri)
+
 SOURCES += main.cpp
 
-include(QtNetCore.pri)
+
 
 DEFINES += QT_DEPRECATED_WARNINGS
