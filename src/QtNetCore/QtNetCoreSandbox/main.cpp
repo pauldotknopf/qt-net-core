@@ -2,13 +2,9 @@
 #include <iostream>
 #include "qtnetcoreengine.h"
 
-int main(int argc, char *argv[])
+int wmain(const int argc, const wchar_t *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QtNetCoreEngine engine;
 
-    new QtNetCoreEngine();
-
-    std::cout << "test\n";
-
-    return a.exec();
+    return engine.Initialize(argc, argv);
 }
