@@ -22,7 +22,8 @@ INCLUDEPATH += $$PWD/common \
 SOURCES += $$PWD/qtnetcoreengine.cpp \
     $$PWD/common/utils.cpp \
     $$PWD/common/trace.cpp \
-    $$PWD/cli/fxr/fx_ver.cpp
+    $$PWD/cli/fxr/fx_ver.cpp \
+    $$PWD/corerunner.cpp
 
 HEADERS += qtnetcoreengine.h \
     $$PWD/qtnetcoreengine_global.h \
@@ -30,7 +31,8 @@ HEADERS += qtnetcoreengine.h \
     $$PWD/common/utils.h \
     $$PWD/common/trace.h \
     $$PWD/common/pal.h \
-    $$PWD/cli/fxr/fx_ver.h
+    $$PWD/cli/fxr/fx_ver.h \
+    $$PWD/corerunner.h
 
 windows {
     SOURCES += $$PWD/common/pal.windows.cpp

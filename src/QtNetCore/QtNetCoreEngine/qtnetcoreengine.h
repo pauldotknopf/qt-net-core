@@ -8,11 +8,9 @@ class QtNetCoreEnginePrivate;
 class QTNETCOREENGINESHARED_EXPORT QtNetCoreEngine
 {
 public:
-  QtNetCoreEngine();
+  QtNetCoreEngine(const int argc, const wchar_t *argv[]);
   ~QtNetCoreEngine();
    QScopedPointer<QtNetCoreEnginePrivate> const d_ptr;
-   int Initialize(const int argc, const wchar_t* argv[]);
-   int TearDown();
 };
 
 #endif // QTNETCOREENGINE_H
