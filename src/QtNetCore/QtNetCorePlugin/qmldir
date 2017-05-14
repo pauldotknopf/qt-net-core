@@ -1,0 +1,2 @@
+module QtNetCore
+plugin QtNetCorePlugin

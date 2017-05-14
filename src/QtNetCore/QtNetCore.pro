@@ -2,6 +2,9 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     QtNetCoreEngine \
-    QtNetCoreSandbox
+    QtNetCoreSandbox \
+    QtNetCorePlugin \
+    QtNetCorePluginSandbox
 
 QtNetCoreSandbox.depends = QtNetCoreEngine
+QtNetCorePlugin.depends = QtNetCoreEngine
