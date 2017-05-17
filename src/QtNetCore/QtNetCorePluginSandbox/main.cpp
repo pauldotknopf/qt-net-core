@@ -1,16 +1,25 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "../QtNetCorePlugin/netcore.h"
+#include <QQmlContext>
+#include <QQuickView>
+#include "netcore.h"
 
-int wmain(int argc, wchar_t *argv[])
+int main(int argc, char *argv[])
 {
-    NetCore::initializeCoreEngine(argc, argv);
-
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
+    qmlRegisterType<NetCore>("QtNetCore", 1, 0, "NetCore");
+
     QQmlApplicationEngine engine;
+
+    NetCore::CreateCoreCLR(app.arguments());
+
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
-    return app.exec();
+    int result = app.exec();
+
+    NetCore::DestroyCoreCLR();
+
+    return result;
 }
