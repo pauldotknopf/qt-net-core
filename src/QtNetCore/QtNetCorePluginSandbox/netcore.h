@@ -17,6 +17,9 @@ public:
 
     static bool CreateCoreCLR(QStringList arguements);
     static bool DestroyCoreCLR();
+
+    Q_INVOKABLE
+    void invokeStatic(QString type, QString method, QVariant args, QJSValue callback);
 };
 
 #endif // NETCORE_H

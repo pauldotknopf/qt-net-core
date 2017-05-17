@@ -10,7 +10,11 @@ ApplicationWindow {
     title: qsTr("Hello World")
 
     NetCore {
+        Component.onCompleted: {
+            invokeStatic('QtNetCoreInteropSandbox.TestClass, QtNetCoreInteropSandbox', 'TestStaticMethod', [], function (result) {
 
+            });
+        }
     }
 
     SwipeView {

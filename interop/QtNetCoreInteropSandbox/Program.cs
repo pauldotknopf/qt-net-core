@@ -2,6 +2,14 @@
 
 namespace QtNetCoreInteropSandbox
 {
+    public static class TestClass
+    {
+        public static void TestStaticMethod()
+        {
+            Console.WriteLine("Invoked static method!!");
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)

@@ -10,6 +10,8 @@
 
 // this callback is called from c++ to trigger the coreclr to quit (exit wait loop)
 typedef void(*QuitSignal)();
+// callback used to invoke static methods
+typedef void(*InvokeStatic)(char* type, char* method);
 
 // This struct is passed to the CoreCLR via an arg in Program.Main.
 // The .NET code should use this to fully wire everything up.
@@ -17,7 +19,7 @@ struct InteropData
 {
     void* nativeEngine;
     void* coreCLRInitiaizedCallback;
-    void* setQuitSignal;
+    void* setDelegates;
 };
 
 class QtNetCoreEnginePrivate : public QThread
@@ -41,6 +43,7 @@ public:
     int startupResult;
     bool isClrRunning;
     QuitSignal quitSignal;
+    InvokeStatic invokeStatic;
 protected:
     void run() override
     {
@@ -77,9 +80,10 @@ void CoreCLRInitiaizedCallback(QtNetCoreEngine* engine, int result)
     engine->d_ptr->coreClrInitialized(result);
 }
 
-void SetQuitSignal(QtNetCoreEngine* engine, QuitSignal signal)
+void SetDelegates(QtNetCoreEngine* engine, QuitSignal signal, InvokeStatic invokeStatic)
 {
     engine->d_ptr->quitSignal = signal;
+    engine->d_ptr->invokeStatic = invokeStatic;
 }
 
 QtNetCoreEngine::QtNetCoreEngine(const int argc, const wchar_t *argv[]) : d_ptr(new QtNetCoreEnginePrivate)
@@ -88,7 +92,7 @@ QtNetCoreEngine::QtNetCoreEngine(const int argc, const wchar_t *argv[]) : d_ptr(
 
     d_ptr->interopData.nativeEngine = this;
     d_ptr->interopData.coreCLRInitiaizedCallback = &CoreCLRInitiaizedCallback;
-    d_ptr->interopData.setQuitSignal = &SetQuitSignal;
+    d_ptr->interopData.setDelegates = &SetDelegates;
 
     for(int x = 0; x < argc; x++)
     {
@@ -113,6 +117,18 @@ QtNetCoreEngine::~QtNetCoreEngine()
         d_ptr->quitSignal();
         d_ptr->startupHandle.wait(&d_ptr->mutex);
     }
+
+    d_ptr->mutex.unlock();
+}
+
+void QtNetCoreEngine::InvokeStatic(QString type, QString method, QVariantList arguements)
+{
+    d_ptr->mutex.lock();
+
+    QByteArray typeByteArray = type.toLatin1();
+    QByteArray methodByteArray = method.toLatin1();
+
+    d_ptr->invokeStatic(typeByteArray.data(), methodByteArray.data());
 
     d_ptr->mutex.unlock();
 }

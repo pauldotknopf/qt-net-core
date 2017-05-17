@@ -69,3 +69,9 @@ bool NetCore::DestroyCoreCLR()
 {
     return NetCorePrivate::DestroyCoreCLR();
 }
+
+void NetCore::invokeStatic(QString type, QString method, QVariant args, QJSValue callback)
+{
+    QVariantList list;
+    NetCorePrivate::coreEngine->InvokeStatic(type, method, list);
+}
